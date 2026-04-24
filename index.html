@@ -66,26 +66,44 @@
             color: var(--dark);
             margin-bottom: 1.5rem;
         }
-        .lechat-box {
+        .ai-box {
             background-color: white;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
-        .lechat-box h2 {
+        .ai-box h2 {
             margin-top: 0;
             color: var(--secondary);
         }
-        #lechat-input {
-            width: 100%;
+        .input-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        #ai-input {
+            flex: 1;
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
-            margin-top: 0.5rem;
         }
-        #lechat-button {
+        #microphone-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #microphone-button:hover {
+            background-color: #226B3E;
+        }
+        #ask-button {
             background-color: var(--primary);
             color: white;
             border: none;
@@ -94,11 +112,12 @@
             font-size: 1rem;
             cursor: pointer;
             margin-top: 1rem;
+            width: 100%;
         }
-        #lechat-button:hover {
+        #ask-button:hover {
             background-color: #226B3E;
         }
-        #lechat-response {
+        #ai-response {
             margin-top: 1rem;
             padding: 1rem;
             border: 1px solid #ddd;
@@ -163,11 +182,14 @@
             <h1>Welcome to OurHealth</h1>
             <p>Ask your health questions and get AI-powered insights.</p>
         </div>
-        <div class="lechat-box">
-            <h2>Ask Le Chat a Health Question</h2>
-            <input type="text" id="lechat-input" placeholder="Type your health question here...">
-            <button id="lechat-button">Ask Le Chat</button>
-            <div id="lechat-response"></div>
+        <div class="ai-box">
+            <h2>Ask a Health Question</h2>
+            <div class="input-container">
+                <input type="text" id="ai-input" placeholder="Type your health question here...">
+                <button id="microphone-button" title="Speak your question">🎤</button>
+            </div>
+            <button id="ask-button">Ask Now</button>
+            <div id="ai-response"></div>
         </div>
         <div class="info-form">
             <h2>Provide Your Information</h2>
@@ -217,18 +239,48 @@
         <p>© 2026 OurHealth. All rights reserved.</p>
     </footer>
 
-    <!-- Le Chat API Integration -->
+    <!-- Voice Recognition and AI Integration -->
     <script>
-        document.getElementById('lechat-button').addEventListener('click', async function() {
-            const question = document.getElementById('lechat-input').value;
-            const responseDiv = document.getElementById('lechat-response');
+        // Voice recognition setup
+        const microphoneButton = document.getElementById('microphone-button');
+        const aiInput = document.getElementById('ai-input');
+
+        if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            microphoneButton.addEventListener('click', () => {
+                recognition.start();
+                aiInput.placeholder = "Listening...";
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                aiInput.value = transcript;
+                aiInput.placeholder = "Type your health question here...";
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error', event.error);
+                aiInput.placeholder = "Type your health question here...";
+            };
+        } else {
+            microphoneButton.style.display = 'none';
+            console.warn('Speech recognition not supported in this browser.');
+        }
+
+        // AI API integration
+        document.getElementById('ask-button').addEventListener('click', async function() {
+            const question = document.getElementById('ai-input').value;
+            const responseDiv = document.getElementById('ai-response');
             if (!question) return;
 
-            responseDiv.innerHTML = '<p class="loading">Asking Le Chat...</p>';
+            responseDiv.innerHTML = '<p class="loading">Processing your question...</p>';
 
             try {
-                // LINE 129: REPLACE THE PLACEHOLDER BELOW WITH YOUR ACTUAL MISTRAL API KEY
-                const apiKey = 'LxYfTP7ZyN2RuROLwdzVwO3jQtbt7zYK'; // 
+                // LINE 129: REPLACE THE PLACEHOLDER BELOW WITH YOUR ACTUAL API KEY
+                const apiKey = 'YOUR_MISTRAL_API_KEY'; // <-- EDIT THIS LINE
                 const apiUrl = 'https://api.mistral.ai/v1/chat/completions';
 
                 const response = await fetch(apiUrl, {
@@ -247,7 +299,7 @@
 
                 const data = await response.json();
                 if (data.choices && data.choices[0].message) {
-                    responseDiv.innerHTML = `<p><strong>Le Chat:</strong> ${data.choices[0].message.content}</p>`;
+                    responseDiv.innerHTML = `<p><strong>OurHealth AI:</strong> ${data.choices[0].message.content}</p>`;
                 } else {
                     responseDiv.innerHTML = '<p>Sorry, I could not get a response. Please try again later.</p>';
                 }
