@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OurHealth</title>
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --secondary: #4682B4;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            font-family: var(--font-main);
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+        header {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+        .lechat-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .lechat-box h2 {
+            margin-top: 0;
+            color: var(--secondary);
+        }
+        #lechat-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        #lechat-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        #lechat-button:hover {
+            background-color: #226B3E;
+        }
+        #lechat-response {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        .info-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .info-form h2 {
+            margin-top: 0;
+            color: var(--secondary);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: white;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">🌿</div>
+            <div class="logo-text">OurHealth</div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to OurHealth</h1>
+            <p>Ask your health questions and get AI-powered insights.</p>
+        </div>
+        <div class="lechat-box">
+            <h2>Ask Le Chat a Health Question</h2>
+            <input type="text" id="lechat-input" placeholder="Type your health question here...">
+            <button id="lechat-button">Ask Le Chat</button>
+            <div id="lechat-response"></div>
+        </div>
+        <div class="info-form">
+            <h2>Provide Your Information</h2>
+            <form id="health-info-form">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age or Birth Month/Year</label>
+                    <input type="text" id="age" placeholder="e.g., 35 or 05/1990" required>
+                </div>
+                <div class="form-group">
+                    <label for="symptoms">Symptoms and Other Medical Conditions</label>
+                    <textarea id="symptoms" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="diagnoses">Past Diagnoses</label>
+                    <textarea id="diagnoses"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="medications">Current Medications</label>
+                    <textarea id="medications"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="lifestyle">Lifestyle Factors (e.g., diet, exercise, sleep)</label>
+                    <textarea id="lifestyle"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="allergies">Allergies</label>
+                    <textarea id="allergies"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>© 2026 OurHealth. All rights reserved.</p>
+    </footer>
+
+    <!-- Le Chat API Integration -->
+    <script>
+        document.getElementById('lechat-button').addEventListener('click', async function() {
+            const question = document.getElementById('lechat-input').value;
+            const responseDiv = document.getElementById('lechat-response');
+            if (!question) return;
+
+            responseDiv.innerHTML = '<p class="loading">Asking Le Chat...</p>';
+
+            try {
+                // LINE 129: REPLACE THE PLACEHOLDER BELOW WITH YOUR ACTUAL MISTRAL API KEY
+                const apiKey = 'LxYfTP7ZyN2RuROLwdzVwO3jQtbt7zYK'; // 
+                const apiUrl = 'https://api.mistral.ai/v1/chat/completions';
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'mistral-tiny',
+                        messages: [
+                            { role: 'user', content: `Health question: ${question}. Provide a concise, informative, and empathetic response.` }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                if (data.choices && data.choices[0].message) {
+                    responseDiv.innerHTML = `<p><strong>Le Chat:</strong> ${data.choices[0].message.content}</p>`;
+                } else {
+                    responseDiv.innerHTML = '<p>Sorry, I could not get a response. Please try again later.</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                responseDiv.innerHTML = '<p>Sorry, there was an error. Please try again later.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
