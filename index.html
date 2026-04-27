@@ -25,6 +25,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
+            justify-content: center;
         }
         .logo {
             display: flex;
@@ -48,39 +49,36 @@
             color: var(--primary);
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
         .hero {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
         .hero h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1rem;
-        }
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
         }
         .ai-box {
             background-color: white;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
         }
         .ai-box h2 {
             margin-top: 0;
             color: var(--secondary);
+            text-align: center;
         }
         .input-container {
             display: flex;
             gap: 0.5rem;
-            margin-top: 0.5rem;
+            margin-top: 1rem;
         }
         #ai-input {
             flex: 1;
@@ -125,36 +123,35 @@
             background-color: #f9f9f9;
             white-space: pre-wrap;
         }
-        .info-form {
+        .columns {
+            display: flex;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .column {
+            flex: 1;
             background-color: white;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .info-form h2 {
+        .column h2 {
+            color: var(--primary);
             margin-top: 0;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        .column ul {
+            padding-left: 1.2rem;
+        }
+        .column li {
+            margin-bottom: 0.5rem;
+            cursor: pointer;
             color: var(--secondary);
         }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.3rem;
-            font-weight: 500;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.6rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
+        .column li:hover {
+            color: var(--primary);
+            text-decoration: underline;
         }
         footer {
             text-align: center;
@@ -179,64 +176,59 @@
     </header>
     <div class="container">
         <div class="hero">
-            <h1>Welcome to YourHealth</h1>
-            <p>Ask your health questions and get AI-powered insights to optimize your health and life.</p>
+            <h1>Optimize your health for a long, happy life!</h1>
         </div>
+
+        <!-- Health Question Box (Centered) -->
         <div class="ai-box">
             <h2>Ask a Health Question</h2>
             <div class="input-container">
-                <input type="text" id="ai-input" placeholder="Type your health question here...">
+                <input type="text" id="ai-input" placeholder="e.g., What’s the best diet for heart health?">
                 <button id="microphone-button" title="Speak your question">🎤</button>
             </div>
             <button id="ask-button">Ask Now</button>
             <div id="ai-response"></div>
         </div>
-        <div class="info-form">
-            <h2>Provide Your Information</h2>
-            <form id="health-info-form">
-                <div class="form-group">
-                    <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" required>
-                        <option value="">Select</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                        <option value="prefer-not-to-say">Prefer not to say</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="age">Age or Birth Month/Year</label>
-                    <input type="text" id="age" placeholder="e.g., 35 or 05/1990" required>
-                </div>
-                <div class="form-group">
-                    <label for="symptoms">Symptoms and Other Medical Conditions</label>
-                    <textarea id="symptoms" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="diagnoses">Past Diagnoses</label>
-                    <textarea id="diagnoses"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="medications">Current Medications</label>
-                    <textarea id="medications"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="lifestyle">Lifestyle Factors (e.g., diet, exercise, sleep)</label>
-                    <textarea id="lifestyle"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="allergies">Allergies</label>
-                    <textarea id="allergies"></textarea>
-                </div>
-            </form>
+
+        <!-- Two Columns: Diet & Habits -->
+        <div class="columns">
+            <!-- Left Column: Diet -->
+            <div class="column">
+                <h2>Optimize your diet to prevent cardiovascular disease, cancer, and neurodegenerative disease</h2>
+                <ul>
+                    <li onclick="window.location.href='diet-page.html'">Eat more leafy greens and cruciferous vegetables</li>
+                    <li onclick="window.location.href='diet-page.html'">Prioritize omega-3 fatty acids (fatty fish, flaxseeds)</li>
+                    <li onclick="window.location.href='diet-page.html'">Reduce processed sugars and refined carbs</li>
+                    <li onclick="window.location.href='diet-page.html'">Choose whole grains over white bread/pasta</li>
+                    <li onclick="window.location.href='diet-page.html'">Limit red meat and processed meats</li>
+                    <li onclick="window.location.href='diet-page.html'">Incorporate berries and colorful fruits</li>
+                    <li onclick="window.location.href='diet-page.html'">Use olive oil as your primary fat</li>
+                    <li onclick="window.location.href='diet-page.html'">Add nuts and seeds to your meals</li>
+                    <li onclick="window.location.href='diet-page.html'">Stay hydrated with water and herbal teas</li>
+                    <li onclick="window.location.href='diet-page.html'">Try intermittent fasting or time-restricted eating</li>
+                </ul>
+            </div>
+
+            <!-- Right Column: Exercise & Habits -->
+            <div class="column">
+                <h2>Maximize your exercise and health habits for preventing cancer, cardiovascular, and neurodegenerative disease</h2>
+                <ul>
+                    <li onclick="window.location.href='habits-page.html'">Aim for 150+ minutes of moderate exercise weekly</li>
+                    <li onclick="window.location.href='habits-page.html'">Include strength training 2-3x/week</li>
+                    <li onclick="window.location.href='habits-page.html'">Prioritize sleep (7-9 hours/night)</li>
+                    <li onclick="window.location.href='habits-page.html'">Manage stress with meditation or deep breathing</li>
+                    <li onclick="window.location.href='habits-page.html'">Limit sitting; take movement breaks hourly</li>
+                    <li onclick="window.location.href='habits-page.html'">Avoid smoking and limit alcohol</li>
+                    <li onclick="window.location.href='habits-page.html'">Build social connections and community</li>
+                    <li onclick="window.location.href='habits-page.html'">Practice good dental hygiene</li>
+                    <li onclick="window.location.href='habits-page.html'">Monitor blood pressure and cholesterol</li>
+                    <li onclick="window.location.href='habits-page.html'">Get regular health screenings</li>
+                </ul>
+            </div>
         </div>
     </div>
     <footer>
-        <p>© 2026 OurHealth. All rights reserved.</p>
+        <p>© 2026 YourHealth. All rights reserved.</p>
     </footer>
 
     <!-- Voice Recognition and AI Integration -->
@@ -247,30 +239,33 @@
 
         if ('webkitSpeechRecognition' in window) {
             const recognition = new webkitSpeechRecognition();
-            recognition.continuous = false;
+            recognition.lang = 'en-US';
             recognition.interimResults = false;
 
             microphoneButton.addEventListener('click', () => {
+                aiInput.placeholder = "Listening... Speak now.";
                 recognition.start();
-                aiInput.placeholder = "Listening...";
             });
 
             recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
                 aiInput.value = transcript;
-                aiInput.placeholder = "Type your health question here...";
+                aiInput.placeholder = "e.g., What’s the best diet for heart health?";
             };
 
             recognition.onerror = (event) => {
-                console.error('Speech recognition error', event.error);
-                aiInput.placeholder = "Type your health question here...";
+                console.error('Speech error:', event.error);
+                aiInput.placeholder = `Error: ${event.error}`;
+                setTimeout(() => {
+                    aiInput.placeholder = "e.g., What’s the best diet for heart health?";
+                }, 2000);
             };
         } else {
             microphoneButton.style.display = 'none';
-            console.warn('Speech recognition not supported in this browser.');
+            console.warn('Speech recognition not supported.');
         }
 
-        // AI API integration
+        // AI API integration (placeholder)
         document.getElementById('ask-button').addEventListener('click', async function() {
             const question = document.getElementById('ai-input').value;
             const responseDiv = document.getElementById('ai-response');
@@ -278,35 +273,10 @@
 
             responseDiv.innerHTML = '<p class="loading">Processing your question...</p>';
 
-            try {
-                // LINE 129: REPLACE THE PLACEHOLDER BELOW WITH YOUR ACTUAL API KEY
-                const apiKey = 'LxYfTP7ZyN2RuROLwdzVwO3jQtbt7zYK'; // <-- EDIT THIS LINE
-                const apiUrl = 'https://api.mistral.ai/v1/chat/completions';
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: 'mistral-tiny',
-                        messages: [
-                            { role: 'user', content: `Health question: ${question}. Provide a concise, informative, and empathetic response.` }
-                        ]
-                    })
-                });
-
-                const data = await response.json();
-                if (data.choices && data.choices[0].message) {
-                    responseDiv.innerHTML = `<p><strong>YourHealth AI:</strong> ${data.choices[0].message.content}</p>`;
-                } else {
-                    responseDiv.innerHTML = '<p>Sorry, I could not get a response. Please try again later.</p>';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                responseDiv.innerHTML = '<p>Sorry, there was an error. Please try again later.</p>';
-            }
+            // Simulate AI response (replace with actual API call later)
+            setTimeout(() => {
+                responseDiv.innerHTML = `<p><strong>YourHealth AI:</strong> Here’s what we found about "${question}": [Simulated response. Replace with real API call.]</p>`;
+            }, 1000);
         });
     </script>
 </body>
