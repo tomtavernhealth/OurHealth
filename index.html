@@ -5,128 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YourHealth</title>
     <style>
-        /* (Keep all your existing CSS - it's perfect) */
-        :root { --primary: #2E8B57; --secondary: #4682B4; --light: #F8F9FA; --dark: #343A40; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; color: var(--dark); line-height: 1.5; }
-        /* ... (rest of your CSS remains unchanged) ... */
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <div class="logo-icon">🌿</div>
-            <div class="logo-text">YourHealth</div>
-        </div>
-    </header>
-    <div class="container">
-        <div class="hero">
-            <h1>Optimize your health for a long, happy life!</h1>
-        </div>
-
-        <div class="ai-box">
-            <h2>Ask a Health Question</h2>
-            <div class="input-container">
-                <input type="text" id="ai-input" placeholder="e.g., What’s the best diet for heart health?">
-                <button id="microphone-button" title="Speak your question">🎤</button>
-            </div>
-            <button id="ask-button">Ask Now</button>
-            <div id="ai-response"></div>
-        </div>
-
-        <div class="columns">
-            <!-- Diet Column -->
-            <div class="column">
-                <h2>Optimize your diet to prevent cardiovascular disease, cancer, and neurodegenerative disease</h2>
-                <ul>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/expert-answers/vegetables/faq-20058086', '_blank')">Eat more leafy greens and cruciferous vegetables</li>
-                    <li onclick="window.open('https://www.health.harvard.edu/blog/omega-3-fats-why-we-need-them-202107012513', '_blank')">Prioritize omega-3 fatty acids (fatty fish, flaxseeds)</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/added-sugar/art-20045328', '_blank')">Reduce processed sugars and refined carbs</li>
-                    <li onclick="window.open('https://health.clevelandclinic.org/whole-grains/', '_blank')">Choose whole grains over white bread/pasta</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/expert-answers/processed-meat/faq-20058386', '_blank')">Limit red meat and processed meats</li>
-                    <li onclick="window.open('https://www.health.harvard.edu/blog/berries-are-a-superfood-for-your-brain-202107082545', '_blank')">Incorporate berries and colorful fruits</li>
-                    <li onclick="window.open('https://www.health.harvard.edu/staying-healthy/the-truth-about-fats-bad-and-good', '_blank')">Use olive oil as your primary fat</li>
-                    <li onclick="window.open('https://health.clevelandclinic.org/nuts-5-healthy-reasons-to-eat-them/', '_blank')">Add nuts and seeds to your meals</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/expert-answers/water/faq-20058067', '_blank')">Stay hydrated with water and herbal teas</li>
-                    <li onclick="window.open('https://www.hopkinsmedicine.org/health/wellness-and-prevention/intermittent-fasting-what-to-know', '_blank')">Try intermittent fasting or time-restricted eating</li>
-                </ul>
-            </div>
-
-            <!-- Exercise & Habits Column -->
-            <div class="column">
-                <h2>Maximize your exercise and health habits for preventing cancer, cardiovascular, and neurodegenerative disease</h2>
-                <ul>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/fitness/expert-answers/exercise/faq-20057916', '_blank')">Aim for 150+ minutes of moderate exercise weekly</li>
-                    <li onclick="window.open('https://www.health.harvard.edu/staying-healthy/strength-training-builds-more-than-muscles', '_blank')">Include strength training 2-3x/week</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/sleep/faq-20057902', '_blank')">Prioritize sleep (7-9 hours/night)</li>
-                    <li onclick="window.open('https://www.hopkinsmedicine.org/health/wellness-and-prevention/meditation', '_blank')">Manage stress with meditation or deep breathing</li>
-                    <li onclick="window.open('https://health.clevelandclinic.org/sitting-disease/', '_blank')">Limit sitting; take movement breaks hourly</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/quit-smoking/expert-answers/quitting-smoking/faq-20058455', '_blank')">Avoid smoking and limit alcohol</li>
-                    <li onclick="window.open('https://www.hopkinsmedicine.org/health/wellness-and-prevention/the-importance-of-social-connections', '_blank')">Build social connections and community</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/oral-health/faq-20058425', '_blank')">Practice good dental hygiene</li>
-                    <li onclick="window.open('https://www.mayoclinic.org/diseases-conditions/high-blood-pressure/in-depth/blood-pressure/art-20046989', '_blank')">Monitor blood pressure and cholesterol</li>
-                    <li onclick="window.open('https://health.clevelandclinic.org/preventive-screenings/', '_blank')">Get regular health screenings</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <p>© 2026 YourHealth. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Voice recognition and AI integration (unchanged)
-        const microphoneButton = document.getElementById('microphone-button');
-        const aiInput = document.getElementById('ai-input');
-        if ('webkitSpeechRecognition' in window) {
-            const recognition = new webkitSpeechRecognition();
-            recognition.lang = 'en-US';
-            recognition.interimResults = false;
-            microphoneButton.addEventListener('click', () => {
-                aiInput.placeholder = "Listening... Speak now.";
-                recognition.start();
-            });
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                aiInput.value = transcript;
-                aiInput.placeholder = "e.g., What’s the best diet for heart health?";
-            };
-            recognition.onerror = (event) => {
-                console.error('Speech error:', event.error);
-                aiInput.placeholder = `Error: ${event.error}`;
-                setTimeout(() => { aiInput.placeholder = "e.g., What’s the best diet for heart health?"; }, 2000);
-            };
-        } else {
-            microphoneButton.style.display = 'none';
-            console.warn('Speech recognition not supported.');
+        :root {
+            --primary: #2E8B57;
+            --secondary: #4682B4;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Georgia', serif;
         }
 
-        document.getElementById('ask-button').addEventListener('click', async function() {
-            const question = document.getElementById('ai-input').value;
-            const responseDiv = document.getElementById('ai-response');
-            if (!question) return;
-            responseDiv.innerHTML = '<p class="loading">Processing your question...</p>';
-            try {
-                const apiKey = 'LxYfTP7ZyN2RuROLwdzVwO3jQtbt7zYK';
-                const apiUrl = 'https://api.mistral.ai/v1/chat/completions';
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-                    body: JSON.stringify({
-                        model: 'mistral-tiny',
-                        messages: [{ role: 'user', content: `Health question: ${question}. Provide a concise, informative, and empathetic response.` }]
-                    })
-                });
-                const data = await response.json();
-                if (data.choices && data.choices[0].message) {
-                    responseDiv.innerHTML = `<p><strong>YourHealth AI:</strong><br><br>${data.choices[0].message.content}</p>`;
-                } else {
-                    responseDiv.innerHTML = '<p><strong>YourHealth AI:</strong><br><br>Sorry, I could not get a response. Please try again later.</p>';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                responseDiv.innerHTML = '<p><strong>YourHealth AI:</strong><br><br>Sorry, there was an error. Please try again later.</p>';
-            }
-        });
-    </script>
-</body>
-</html>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-family: var(--font-heading);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .ai-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .ai-box h2 {
+            margin-top: 0;
+            color: var(--secondary);
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-heading);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        #ai-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        #ai-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        #microphone-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        #microphone-button:hover {
+            background-color: #226B3E;
+        }
+
+        #ask-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        #ask-button:hover {
+            background-color: #226B3E;
+        }
+
+        #ai-response {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        #ai-response strong {
+            color: black;
+            font-weight: bold;
+        }
+
+        .columns {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .column {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 12px rgba(0,
