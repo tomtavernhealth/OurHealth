@@ -18,10 +18,11 @@
             margin: 0;
             padding: 0;
             color: var(--dark);
+            line-height: 1.5;
         }
         header {
             background-color: white;
-            padding: 1rem 2rem;
+            padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -49,31 +50,33 @@
             color: var(--primary);
         }
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
+            max-width: 100%;
+            margin: 0 auto;
             padding: 0 1rem;
         }
         .hero {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
         }
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         .ai-box {
             background-color: white;
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin: 2rem auto;
-            max-width: 600px;
+            margin: 1.5rem auto;
+            max-width: 100%;
         }
         .ai-box h2 {
             margin-top: 0;
             color: var(--secondary);
             text-align: center;
+            font-size: 1.2rem;
         }
         .input-container {
             display: flex;
@@ -122,17 +125,23 @@
             border-radius: 4px;
             background-color: #f9f9f9;
             white-space: pre-wrap;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        #ai-response strong {
+            color: black;
+            font-weight: bold;
         }
         .columns {
             display: flex;
-            gap: 2rem;
-            margin: 3rem 0;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
         .column {
-            flex: 1;
             background-color: white;
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .column h2 {
@@ -140,14 +149,17 @@
             margin-top: 0;
             border-bottom: 2px solid var(--light);
             padding-bottom: 0.5rem;
+            font-size: 1.3rem;
         }
         .column ul {
             padding-left: 1.2rem;
+            margin: 0;
         }
         .column li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
             cursor: pointer;
             color: var(--secondary);
+            font-size: 1rem;
         }
         .column li:hover {
             color: var(--primary);
@@ -157,13 +169,21 @@
             text-align: center;
             padding: 1rem;
             background-color: white;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             color: #666;
             font-size: 0.9rem;
         }
         .loading {
             color: #666;
             font-style: italic;
+        }
+        @media (min-width: 768px) {
+            .columns {
+                flex-direction: row;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -179,7 +199,7 @@
             <h1>Optimize your health for a long, happy life!</h1>
         </div>
 
-        <!-- Health Question Box (Centered) -->
+        <!-- Health Question Box -->
         <div class="ai-box">
             <h2>Ask a Health Question</h2>
             <div class="input-container">
@@ -192,37 +212,37 @@
 
         <!-- Two Columns: Diet & Habits -->
         <div class="columns">
-            <!-- Left Column: Diet -->
+            <!-- Diet Column -->
             <div class="column">
                 <h2>Optimize your diet to prevent cardiovascular disease, cancer, and neurodegenerative disease</h2>
                 <ul>
-                    <li onclick="window.location.href='diet-page.html'">Eat more leafy greens and cruciferous vegetables</li>
-                    <li onclick="window.location.href='diet-page.html'">Prioritize omega-3 fatty acids (fatty fish, flaxseeds)</li>
-                    <li onclick="window.location.href='diet-page.html'">Reduce processed sugars and refined carbs</li>
-                    <li onclick="window.location.href='diet-page.html'">Choose whole grains over white bread/pasta</li>
-                    <li onclick="window.location.href='diet-page.html'">Limit red meat and processed meats</li>
-                    <li onclick="window.location.href='diet-page.html'">Incorporate berries and colorful fruits</li>
-                    <li onclick="window.location.href='diet-page.html'">Use olive oil as your primary fat</li>
-                    <li onclick="window.location.href='diet-page.html'">Add nuts and seeds to your meals</li>
-                    <li onclick="window.location.href='diet-page.html'">Stay hydrated with water and herbal teas</li>
-                    <li onclick="window.location.href='diet-page.html'">Try intermittent fasting or time-restricted eating</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/leafy-green-vegetables', '_blank')">Eat more leafy greens and cruciferous vegetables</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/omega-3-foods', '_blank')">Prioritize omega-3 fatty acids (fatty fish, flaxseeds)</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/why-sugar-is-bad', '_blank')">Reduce processed sugars and refined carbs</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/whole-grains-vs-refined-carbs', '_blank')">Choose whole grains over white bread/pasta</li>
+                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/expert-answers/processed-meat/faq-20058386', '_blank')">Limit red meat and processed meats</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/berries-health-benefits', '_blank')">Incorporate berries and colorful fruits</li>
+                    <li onclick="window.open('https://www.health.harvard.edu/staying-healthy/the-truth-about-fats-bad-and-good', '_blank')">Use olive oil as your primary fat</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/9-healthy-nuts', '_blank')">Add nuts and seeds to your meals</li>
+                    <li onclick="window.open('https://www.healthline.com/nutrition/how-much-water-should-you-drink', '_blank')">Stay hydrated with water and herbal teas</li>
+                    <li onclick="window.open('https://www.health.harvard.edu/blog/intermittent-fasting-surprising-update-2021-07-13', '_blank')">Try intermittent fasting or time-restricted eating</li>
                 </ul>
             </div>
 
-            <!-- Right Column: Exercise & Habits -->
+            <!-- Exercise & Habits Column -->
             <div class="column">
                 <h2>Maximize your exercise and health habits for preventing cancer, cardiovascular, and neurodegenerative disease</h2>
                 <ul>
-                    <li onclick="window.location.href='habits-page.html'">Aim for 150+ minutes of moderate exercise weekly</li>
-                    <li onclick="window.location.href='habits-page.html'">Include strength training 2-3x/week</li>
-                    <li onclick="window.location.href='habits-page.html'">Prioritize sleep (7-9 hours/night)</li>
-                    <li onclick="window.location.href='habits-page.html'">Manage stress with meditation or deep breathing</li>
-                    <li onclick="window.location.href='habits-page.html'">Limit sitting; take movement breaks hourly</li>
-                    <li onclick="window.location.href='habits-page.html'">Avoid smoking and limit alcohol</li>
-                    <li onclick="window.location.href='habits-page.html'">Build social connections and community</li>
-                    <li onclick="window.location.href='habits-page.html'">Practice good dental hygiene</li>
-                    <li onclick="window.location.href='habits-page.html'">Monitor blood pressure and cholesterol</li>
-                    <li onclick="window.location.href='habits-page.html'">Get regular health screenings</li>
+                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/fitness/expert-answers/exercise/faq-20057916', '_blank')">Aim for 150+ minutes of moderate exercise weekly</li>
+                    <li onclick="window.open('https://www.health.harvard.edu/staying-healthy/strength-training-builds-more-than-muscles', '_blank')">Include strength training 2-3x/week</li>
+                    <li onclick="window.open('https://www.healthline.com/health/sleep-deprivation/effects-on-body', '_blank')">Prioritize sleep (7-9 hours/night)</li>
+                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/meditation/art-20045858', '_blank')">Manage stress with meditation or deep breathing</li>
+                    <li onclick="window.open('https://www.healthline.com/health/sitting-too-much', '_blank')">Limit sitting; take movement breaks hourly</li>
+                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/quit-smoking/expert-answers/quitting-smoking/faq-20058455', '_blank')">Avoid smoking and limit alcohol</li>
+                    <li onclick="window.open('https://www.healthline.com/health/social-connections', '_blank')">Build social connections and community</li>
+                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/oral-health/faq-20058425', '_blank')">Practice good dental hygiene</li>
+                    <li onclick="window.open('https://www.healthline.com/health/high-blood-pressure/hypertension-symptoms', '_blank')">Monitor blood pressure and cholesterol</li>
+                    <li onclick="window.open('https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/health-screening/art-20046470', '_blank')">Get regular health screenings</li>
                 </ul>
             </div>
         </div>
@@ -265,7 +285,7 @@
             console.warn('Speech recognition not supported.');
         }
 
-        // AI API integration (placeholder)
+        // AI API integration
         document.getElementById('ask-button').addEventListener('click', async function() {
             const question = document.getElementById('ai-input').value;
             const responseDiv = document.getElementById('ai-response');
@@ -273,10 +293,36 @@
 
             responseDiv.innerHTML = '<p class="loading">Processing your question...</p>';
 
-            // Simulate AI response (replace with actual API call later)
-            setTimeout(() => {
-                responseDiv.innerHTML = `<p><strong>YourHealth AI:</strong> Here’s what we found about "${question}": [Simulated response. Replace with real API call.]</p>`;
-            }, 1000);
+            try {
+                // YOUR MISTRAL API KEY IS INSERTED HERE (Line 163)
+                const apiKey = 'LxYfTP7ZyN2RuROLwdzVwO3jQtbt7zYK';
+
+                const apiUrl = 'https://api.mistral.ai/v1/chat/completions';
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'mistral-tiny',
+                        messages: [
+                            { role: 'user', content: `Health question: ${question}. Provide a concise, informative, and empathetic response.` }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                if (data.choices && data.choices[0].message) {
+                    responseDiv.innerHTML = `<p><strong>YourHealth AI:</strong><br><br>${data.choices[0].message.content}</p>`;
+                } else {
+                    responseDiv.innerHTML = '<p><strong>YourHealth AI:</strong><br><br>Sorry, I could not get a response. Please try again later.</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                responseDiv.innerHTML = '<p><strong>YourHealth AI:</strong><br><br>Sorry, there was an error. Please try again later.</p>';
+            }
         });
     </script>
 </body>
