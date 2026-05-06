@@ -10,6 +10,7 @@
             --secondary: #4682B4;
             --light: #F8F9FA;
             --dark: #343A40;
+            --dark-green: #006400;
         }
 
         * {
@@ -139,14 +140,30 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: #f9f9f9;
-            white-space: pre-wrap;
             text-align: left;
             max-width: 600px;
         }
 
-        #ai-response strong {
-            color: black;
+        .ai-headline {
             font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .important-words {
+            color: var(--dark-green);
+            font-weight: bold;
+        }
+
+        .ai-bullets {
+            margin-top: 0.5rem;
+            padding-left: 1.2rem;
+        }
+
+        .ai-bullets li {
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
         }
 
         #followup-container {
@@ -328,13 +345,12 @@
         // Initialize conversation history
         window.conversationHistory = [];
 
-        // Voice recognition setup with proper browser support
+        // Voice recognition setup
         const microphoneButton = document.getElementById('microphone-button');
         const aiInput = document.getElementById('ai-input');
         const followupButton = document.getElementById('followup-button');
         const followupContainer = document.getElementById('followup-container');
 
-        // Use the correct SpeechRecognition API
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
         if (SpeechRecognition) {
@@ -345,10 +361,6 @@
 
             microphoneButton.addEventListener('click', () => {
                 try {
-                    // Stop any ongoing recognition
-                    if (recognition.started) {
-                        recognition.stop();
-                    }
                     recognition.start();
                     aiInput.placeholder = "Listening... Speak now.";
                 } catch (e) {
@@ -382,7 +394,31 @@
             console.warn('Speech recognition not supported in this browser.');
         }
 
-        // AI API integration with follow-up capability
+        // Function to extract most important words (simple implementation)
+        function getImportantWords(text) {
+            // Split into words and return the first two
+            const words = text.split(/\s+/).filter(word => word.length > 2);
+            return words.slice(0, 2);
+        }
+
+        // Function to create bullet points from text
+        function createBulletPoints(text) {
+            // Split into sentences and take first 4 short ones
+            const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.length > 0);
+            const bullets = [];
+            let wordCount = 0;
+
+            for (const sentence of sentences) {
+                if (wordCount + sentence.split(/\s+/).length > 40) break;
+                bullets.push(sentence);
+                wordCount += sentence.split(/\s+/).length;
+                if (bullets.length >= 4) break;
+            }
+
+            return bullets.map(b => `<li>${b}</li>`).join('');
+        }
+
+        // AI API integration with formatted response
         document.getElementById('ask-button').addEventListener('click', async function() {
             const question = document.getElementById('ai-input').value;
             const responseDiv = document.getElementById('ai-response');
@@ -393,7 +429,6 @@
             followupContainer.style.display = 'none';
 
             try {
-                // Your API key is included as requested
                 const apiKey = 'LxYfTP7ZyN2RuROLwdzVwO3jQtbt7zYK';
                 const apiUrl = 'https://api.mistral.ai/v1/chat/completions';
 
@@ -408,14 +443,36 @@
                     },
                     body: JSON.stringify({
                         model: 'mistral-tiny',
-                        messages: window.conversationHistory
+                        messages: window.conversationHistory,
+                        max_tokens: 100  // Limit response length
                     })
                 });
 
                 const data = await response.json();
                 if (data.choices && data.choices[0].message) {
-                    const aiResponse = data.choices[0].message.content;
-                    responseDiv.innerHTML = `<p><strong>YourHealth AI:</strong><br><br>${aiResponse}</p>`;
+                    let aiResponse = data.choices[0].message.content;
+
+                    // Clean up the response
+                    aiResponse = aiResponse.replace(/\*\*/g, '').trim();
+
+                    // Create headline (first 10 words)
+                    const words = aiResponse.split(/\s+/);
+                    const headlineWords = words.slice(0, 10);
+                    const importantWords = headlineWords.slice(0, 2);
+
+                    // Create bullet points from remaining text
+                    const remainingText = words.slice(10).join(' ');
+                    const bulletPoints = createBulletPoints(remainingText);
+
+                    // Format the response
+                    const formattedHeadline = headlineWords.map((word, i) =>
+                        importantWords.includes(word) ? `<span class="important-words">${word}</span>` : word
+                    ).join(' ');
+
+                    responseDiv.innerHTML = `
+                        <div class="ai-headline">${formattedHeadline}</div>
+                        <ul class="ai-bullets">${bulletPoints}</ul>
+                    `;
 
                     // Add AI response to history
                     window.conversationHistory.push({ role: 'assistant', content: aiResponse });
